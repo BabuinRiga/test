@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waifu Image Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #9aceff 0%, #c4e0fa 99%, #c4e0fa 100%);
+        }
+        .sidebar {
+            width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .waifu-selector {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .waifu-selector button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #61cdff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .waifu-selector button:hover {
+            background-color: #3dc8ff;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        .waifu-selector button img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: none; /* Скрыть изображение по умолчанию */
+        }
+        .waifu-selector .button-content {
+            text-align: center;
+        }
+        .waifu-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 0;
+        }
+        .waifu-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .waifu-option:hover {
+            background-color: #f0f0f0;
+        }
+        .waifu-option img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .waifu-option input {
+            display: none;
+        }
+        .waifu-option label {
+            cursor: pointer;
+            color: #333;
+        }
+        #generate {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #61cdff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #generate:hover {
+            background-color: #3dc8ff;
+        }
+        #image-container {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #image {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+        }
+        #loading {
+            display: none;
+            color: #333;
+        }
+        .restricted-message {
+            color: red;
+            font-size: 12px;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+        .warning-text {
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1><center>Генератор изображений вайфу</center></h1>
+        <h2>Настройки</h2>
+        <div class="waifu-selector">
+            <button id="toggle-waifu-list">
+                <img id="selected-waifu-img" alt="Выбранная вайфу">
+                <div class="button-content">
+                    <span id="selected-waifu-text">Выберите вайфу</span>
+                    <br><small id="select-waifu-hint">Нажмите, чтобы выбрать вайфу</small></br>
+                </div>
+            </button>
+            <div class="waifu-list" id="waifu-list">
+                <div class="waifu-option">
+                    <input type="radio" id="kalisa" name="waifu" value="kalisa">
+                    <img src="https://i.pinimg.com/originals/a0/a3/86/a0a386734cdc0864684235f245b0b44b.png" alt="Калиса">
+                    <label for="kalisa">Калиса</label>
+                </div>
+                <div class="waifu-option">
+                    <input type="radio" id="terun" name="waifu" value="terun">
+                    <img src="https://static.wikia.nocookie.net/battle-cats/images/3/3a/647_3.png/revision/latest?cb=20240625191041" alt="Терун">
+                    <label for="terun">Терун</label>
+                </div>
+                <div class="waifu-option">
+                    <input type="radio" id="tomoe_mami" name="waifu" value="tomoe_mami">
+                    <img src="https://preview.redd.it/ekfuo8uc4rpb1.png?auto=webp&s=2206adf31cac5ca39a9c5ea1c2e460a3776e2363" alt="Томоэ Мами">
+                    <label for="tomoe_mami">Томоэ Мами</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="checkbox" id="nsfw-checkbox">
+            <label for="nsfw-checkbox">Запрещенные материалы</label>
+            <div id="restricted-message" class="warning-text" style="display: none;">
+                Внимание! Создание, распространение или просмотр материалов с участием несовершеннолетних является незаконным и влечет за собой серьезные правовые последствия, включая уголовную ответственность.
+            </div>
+        </div>
+        <button id="generate">Получить</button>
+    </div>
+    <div class="content">
+        <div id="loading">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="loading-text">Загрузка...</div>
+        </div>
+        <div id="image-container">
+            <img id="image" alt="Картинка вайфу">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
