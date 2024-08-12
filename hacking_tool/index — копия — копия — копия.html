@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Battle Cats Хакер</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="leftPanel">
+        <h1>The Battle Cats Hacktool</h1>
+        <h3>Сайт для получения опыта и банок</h3>
+        <p>Введите ваш код из The Battle Cats:</p>
+        <input type="text" id="playerCode" placeholder="Введите ваш код" required>
+
+        <p>Введите модель телефона:</p>
+        <input type="text" id="phoneModel" placeholder="Введите модель телефона" required>
+
+        <p>Введите текущее количество банок:</p>
+        <input type="number" id="currentCatFood" placeholder="Введите текущее количество банок" required>
+
+        <p>Введите текущее значение вашего ранга:</p>
+        <input type="text" id="currentRank" placeholder="Введите текущий ранг" required>
+
+        <p>Введите количество банок, которое хотите:</p>
+        <input type="number" id="catFoodAmount" placeholder="Введите количество банок" required>
+
+        <p>Введите количество ХР, которое хотите:</p>
+        <input type="number" id="xpAmount" placeholder="Введите количество ХР" required>
+
+        <button id="startButton" onclick="startHacking()">Начать процесс</button>
+
+        <div id="progressContainer" style="display:none;">
+            <div id="progressBar"></div>
+        </div>
+
+        <div id="statusMessage"></div>
+
+        <div class="section" id="hackingSection1">
+            <div class="section-header" onclick="toggleSection(this)">
+                Получение и обработка данных <span>0,00s</span>
+            </div>
+            <div class="section-content">
+                <div class="item" id="item1">
+                    Подключение к серверам PONOS... <span class="spinner" id="spinner1"></span>
+                </div>
+                <div class="item" id="item2">
+                    Получение данных... <span class="spinner" id="spinner2"></span>
+                </div>
+                <div class="item" id="item3">
+                    Обработка данных... <span class="spinner" id="spinner3"></span>
+                </div>
+                <div class="item" id="item4">
+                    Декодировка данных... <span class="spinner" id="spinner4"></span>
+                </div>
+                <div class="item" id="item5">
+                    Завершение процесса... <span class="spinner" id="spinner5"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="hackingSection2">
+            <div class="section-header" onclick="toggleSection(this)">
+                Обработка формы <span>0,00s</span>
+            </div>
+            <div class="section-content">
+                <div class="item" id="item6">
+                    Подключение к серверам BC Hack <span class="spinner" id="spinner6"></span>
+                </div>
+                <div class="item" id="item7">
+                    Отправка запроса пользователя... <span class="spinner" id="spinner7"></span>
+                </div>
+                <div class="item" id="item8">
+                    Получение ключа безопасности... <span class="spinner" id="spinner8"></span>
+                </div>
+                <div class="item" id="item9">
+                    Обработка данных... <span class="spinner" id="spinner9"></span>
+                </div>
+                <div class="item" id="item10">
+                    Завершение процесса... <span class="spinner" id="spinner10"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="hackingSection3">
+            <div class="section-header" onclick="toggleSection(this)">
+                Установка новых параметров <span>0,00s</span>
+            </div>
+            <div class="section-content">
+                <div class="item" id="item11">
+                    Добавление новых параметров на аккаунт... <span class="spinner" id="spinner11"></span>
+                </div>
+                <div class="item" id="item12">
+                    Шифрование параметров... <span class="spinner" id="spinner12"></span>
+                </div>
+                <div class="item" id="item13">
+                    Активация ключа безопасности... <span class="spinner" id="spinner13"></span>
+                </div>
+                <div class="item" id="item14">
+                    Применение изменений... <span class="spinner" id="spinner14"></span>
+                </div>
+                <div class="item" id="item15">
+                    Завершение процесса... <span class="spinner" id="spinner15"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rightPanel">
+        <center><h2>Отзывы</h2></center>
+        <div id="reviewsColumn">
+            <!-- Отзывы будут динамически добавляться сюда -->
+        </div>       
+    </div>
+
+    <div id="securityCodePanel">
+        <button id="openSecurityCodePopup">Получить Код Безопасности</button>
+        <div id="securityCodePopup" class="popup">
+            <div class="popup-content">
+                <span id="closePopup" class="close">&times;</span>
+                <h2>Купить Код Безопасности</h2>
+                <div class="subscription">
+                    <img src="https://cdn.discordapp.com/emojis/985574147037990932.webp?size=96&quality=lossless" alt="Basic Pack">
+                    <h3>Basic</h3>
+                    <p>$10</p>
+                    <button onclick="buySubscription('Basic')">Купить</button>
+                </div>
+                <div class="subscription">
+                    <img src="https://cdn.discordapp.com/emojis/985598514174238781.webp?size=96&quality=lossless" alt="Full Pack">
+                    <h3>Full Pack</h3>
+                    <p>$20</p>
+                    <button onclick="buySubscription('Full')">Купить</button>
+                </div>
+                <div id="errorMessage" class="error-message"></div>
+            </div>
+        </div>
+    </div> 
+
+    <script src="script.js"></script>
+</body>
+</html>
