@@ -1,0 +1,305 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#leftPanel {
+    width: 500px; /* Ширина боковой панели */
+    background-color: #2c2c2c;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    z-index: 50;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-align: left;
+}
+
+h1 {
+    z-index: 100;
+}
+
+p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.input-field, input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:disabled {
+    background-color: #555;
+}
+
+#progressContainer {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #444;
+    border-radius: 10px;
+}
+
+#progressBar {
+    width: 0%;
+    height: 30px;
+    background-color: #4caf50;
+    border-radius: 10px;
+    transition: width 1s;
+}
+
+#statusMessage {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #ccc;
+}
+
+.section {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+.section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
+    padding: 10px;
+    background-color: #444;
+    border-radius: 0 0 5px 5px;
+}
+
+.section-content.open {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.section-content .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.spinner {
+    border: 3px solid #ccc;
+    border-radius: 50%;
+    border-top: 3px solid #4caf50;
+    width: 15px;
+    height: 15px;
+    animation: spin 1s linear infinite;
+    visibility: hidden;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.completed {
+    color: #4caf50;
+}
+
+/* Обновленные стили для полей ввода */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+/* Применение нового класса к полям ввода */
+input[type="text"], input[type="number"] {
+    width: 100%; /* Задаем ширину 100% для адаптивности */
+}
+
+/* Скрытие секций по умолчанию */
+#hackingSection1 {
+    display: none;
+}
+#hackingSection2 {
+    display: none;
+}
+#hackingSection3 {
+    display: none;
+}
+
+#rightPanel {
+    width: 50%;
+    padding: 20px;
+    border-left: 1px solid #222222;
+    position: fixed; /* Закрепляем правую часть экрана */
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden; /* Скрываем отзывы, уходящие за пределы экрана */
+    z-index: 20;
+}
+
+#reviewsColumn {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+.reviewContainer {
+    background-color: #424242;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: absolute; /* Абсолютное позиционирование для предотвращения сдвига */
+    width: 75%;
+    left: 5%;
+    animation: moveUp 15s linear forwards, fadeOut 15s linear forwards; /* Анимации подъема и исчезновения */
+}
+
+#reviewText {
+    font-size: 18px;
+    font-style: italic;
+    color: #ffffff;
+}
+
+#reviewAuthor {
+    font-size: 16px;
+    text-align: right;
+    margin-top: 10px;
+    color: #bbbbbb;
+}
+
+@keyframes moveUp {
+    from {
+        bottom: -100px;
+    }
+    to {
+        bottom: 500px;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+#securityCodePanel {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 200;
+}
+
+#openSecurityCodePopup {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50px;
+    z-index: 150;
+    bottom: 10px;
+    position: fixed; /* Закрепляем правую часть экрана */
+}
+
+#openSecurityCodePopup:hover {
+    background-color: #0056b3;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.popup-content {
+    background: rgb(41, 41, 41);
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    z-index: 200;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.subscription {
+    margin: 20px 0;
+}
+
+.subscription img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+}
